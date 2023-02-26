@@ -1,0 +1,28 @@
+<div class="container">
+  <h5>Hi<%= @current_user.username %> </h5>
+  <h4>Users</h4>
+  <%= turbo_stream_from "users" %>
+  <div id="users">  
+    <%= render @users %>
+  </div>
+ 
+  <h4>Groups</h4>
+  <%= render partial: "layouts/new_message_group_form" %>
+
+  <%= turbo_stream_from "message_groups" %>
+  <div id="message_groups">
+    <%= render @message_groups %>
+  </div>
+
+  <div class="col-md-10 bg-dark text-light">
+    <% if @message_group %>
+      <h4 class="text-center"> <%= @message_group.name %> </h4>
+    <% end %>
+
+    <%= turbo_stream_from @messages %>
+    <div id="messages"
+      <%= render @messages if @messages.present? %>
+    </div>
+    <%= render partial: "layouts/new_message_form" %>
+  </div>
+</div>
